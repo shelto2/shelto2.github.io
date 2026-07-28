@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam — Hyrox Head Judge · Educator · Competitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --asphalt: #15171b;
+    --asphalt-2: #1c1f24;
+    --concrete: #8a8d93;
+    --concrete-dim: #55585e;
+    --chalk: #edeff2;
+    --signal: #ff4c29;
+    --steel: #6f93b3;
+    --line: #2c2f35;
+
+    --display: 'Oswald', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--asphalt);
+    color: var(--chalk);
+    font-family: var(--body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  ::selection { background: var(--signal); color: var(--asphalt); }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Top bar */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .mark {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--concrete);
+  }
+  .topbar .mark span { color: var(--signal); }
+  .topbar nav a {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--concrete);
+    margin-left: 24px;
+    text-transform: uppercase;
+  }
+  .topbar nav a:hover { color: var(--chalk); }
+
+  /* Hero */
+  .hero {
+    padding: 72px 0 56px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 40px;
+    align-items: end;
+    border-bottom: 1px solid var(--line);
+  }
+  .bib {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--signal);
+    border: 1px solid var(--signal);
+    padding: 4px 10px;
+    margin-bottom: 22px;
+  }
+  .bib::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--signal);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(56px, 9vw, 108px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .hero-sub {
+    margin-top: 18px;
+    font-size: 16px;
+    color: var(--concrete);
+    max-width: 42ch;
+  }
+  .hero-sub strong { color: var(--chalk); font-weight: 600; }
+
+  .clock-card {
+    background: var(--asphalt-2);
+    border: 1px solid var(--line);
+    padding: 20px;
+  }
+  .clock-card .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--concrete);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .clock-card .readout {
+    font-family: var(--mono);
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--chalk);
+    font-variant-numeric: tabular-nums;
+  }
+  .clock-card .readout span { color: var(--signal); }
+  .clock-card .sub {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--concrete-dim);
+  }
+
+  /* Stations */
+  .section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--signal);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section h2 {
+    font-family: var(--display);
+    font-size: clamp(28px, 4vw, 40px);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .stations {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+  }
+  .station {
+    padding: 28px 22px;
+    border-right: 1px solid var(--line);
+  }
+  .station:last-child { border-right: none; }
+  .station .num {
+    font-family: var(--mono);
+    color: var(--concrete-dim);
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+  .station h3 {
+    font-family: var(--display);
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .station p {
+    font-size: 14px;
+    color: var(--concrete);
+  }
+
+  /* Race card */
+  .racecard {
+    background: var(--asphalt-2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--signal);
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .racecard .field .k {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--concrete-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .racecard .field .v {
+    font-size: 16px;
+    color: var(--chalk);
+  }
+  .racecard .field { margin-bottom: 22px; }
+
+  /* Log */
+  .log { list-style: none; }
+  .log li {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .log li:last-child { border-bottom: none; }
+  .log .race { color: var(--chalk); }
+  .log .tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--concrete);
+  }
+
+  /* Creator */
+  .creator {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .creator p { color: var(--concrete); margin-bottom: 20px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--asphalt);
+    background: var(--signal);
+    padding: 12px 20px;
+  }
+  .btn:hover { background: #ff6a45; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .tags span {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--steel);
+    border: 1px solid var(--line);
+    padding: 5px 10px;
+    text-transform: uppercase;
+  }
+
+  /* Footer */
+  footer {
+    padding: 40px 0 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer .contact a {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--chalk);
+    text-decoration: none;
+    border-bottom: 1px solid var(--signal);
+  }
+  footer .fine { font-size: 12px; color: var(--concrete-dim); }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; }
+    .stations { grid-template-columns: 1fr; }
+    .station { border-right: none; border-bottom: 1px solid var(--line); }
+    .racecard { grid-template-columns: 1fr; }
+    .creator { grid-template-columns: 1fr; }
+    .topbar nav { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="mark">ADAM<span>.</span> / CANBERRA, AU</div>
+    <nav>
+      <a href="#stations">Stations</a>
+      <a href="#race">Race Prep</a>
+      <a href="#content">Content</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="bib">MEN'S PRO — HYROX</div>
+      <h1>Adam</h1>
+      <p class="hero-sub">
+        <strong>Hyrox Head Judge</strong> and <strong>lululemon Educator</strong> based in Canberra —
+        training six days a week, judging race day standards, and building the case
+        for the everyday athlete.
+      </p>
+    </div>
+    <div class="clock-card">
+      <div class="label">Weekly training block</div>
+      <div class="readout"><span>6</span>/7 days</div>
+      <div class="sub">Currently building toward Hyrox Melbourne — six races across five days</div>
+    </div>
+  </div>
+
+  <div class="section" id="stations">
+    <div class="section-label">Roxzone</div>
+    <h2>Four stations, one athlete</h2>
+    <div class="stations">
+      <div class="station">
+        <div class="num">01</div>
+        <h3>Compete</h3>
+        <p>Men's Pro Hyrox competitor. Races include Hyrox Sydney, Hyrox Perth, City2Surf, and the Melbourne Half Marathon.</p>
+      </div>
+      <div class="station">
+        <div class="num">02</div>
+        <h3>Judge</h3>
+        <p>Head Judge at Hyrox events — training judges on movement standards and managing workout stations on race day.</p>
+      </div>
+      <div class="station">
+        <div class="num">03</div>
+        <h3>Educate</h3>
+        <p>Educator at lululemon Canberra. Studying fitness education full time — anatomy, physiology, and exercise prescription.</p>
+      </div>
+      <div class="station">
+        <div class="num">04</div>
+        <h3>Create</h3>
+        <p>Building a fitness content presence centred on the everyday-athlete angle and the real Hyrox journey.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="race">
+    <div class="section-label">Race Card</div>
+    <h2>Currently prepping</h2>
+    <div class="racecard">
+      <div>
+        <div class="field">
+          <div class="k">Event</div>
+          <div class="v">Hyrox Melbourne — December</div>
+        </div>
+        <div class="field">
+          <div class="k">Slate</div>
+          <div class="v">Six races across five days</div>
+        </div>
+        <div class="field">
+          <div class="k">Priority</div>
+          <div class="v">Men's Pro, plus multiple doubles races with various partners</div>
+        </div>
+      </div>
+      <div>
+        <div class="k" style="font-family: var(--mono); font-size:11px; letter-spacing:0.1em; color: var(--concrete-dim); text-transform: uppercase; margin-bottom: 10px;">Race log</div>
+        <ul class="log">
+          <li><span class="race">Hyrox Sydney</span><span class="tag">Men's Pro</span></li>
+          <li><span class="race">Hyrox Perth</span><span class="tag">Men's Pro</span></li>
+          <li><span class="race">City2Surf</span><span class="tag">Run</span></li>
+          <li><span class="race">Melbourne Half Marathon</span><span class="tag">Run</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="content">
+    <div class="section-label">On Content</div>
+    <h2>The everyday athlete</h2>
+    <div class="creator">
+      <div>
+        <p>
+          Most Hyrox content is built for people already deep in the sport. This is
+          built for the people just starting — the training days that are hard,
+          the sessions that don't go to plan, and what Head Judging actually looks
+          like from the inside.
+        </p>
+        <a class="btn" href="#" id="ig-link">Follow the training log →</a>
+      </div>
+      <div>
+        <div class="tags">
+          <span>Hyrox Training</span>
+          <span>Head Judging</span>
+          <span>Everyday Athlete</span>
+          <span>Race Day</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="contact">
+    <div class="contact">
+      <a href="mailto:hello@example.com">hello@example.com</a>
+    </div>
+    <div class="fine">© <span id="year"></span> Adam — Canberra, Australia</div>
+  </footer>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
